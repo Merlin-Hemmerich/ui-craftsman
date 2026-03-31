@@ -6,6 +6,42 @@ Instead of generating cookie-cutter Tailwind layouts, UI Craftsman uses real com
 
 ---
 
+## Installation
+
+### Quick Install
+
+Add this to your Claude Code settings (`~/.claude/settings.json`):
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "ui-craftsman-marketplace": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/Merlin-Hemmerich/ui-craftsman.git"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "ui-craftsman@ui-craftsman-marketplace": true
+  }
+}
+```
+
+If you already have `extraKnownMarketplaces` or `enabledPlugins` in your settings, merge the entries into your existing objects.
+
+### Usage
+
+After installation, invoke the skill in Claude Code:
+
+```
+/ui-craftsman:ui-craftsman build me a landing page for a SaaS product
+```
+
+The skill name is `ui-craftsman:ui-craftsman` (lowercase, hyphens, no spaces).
+
+---
+
 ## The Problem
 
 AI coding assistants produce generic, repetitive UI:
@@ -32,40 +68,6 @@ All three are **shadcn-registry-based** — fully compatible, same installation 
 
 ---
 
-## Installation
-
-### Option 1: CLI Flag
-
-```bash
-claude --plugin-dir /path/to/ui-craftsman
-```
-
-### Option 2: Permanent (Settings)
-
-Add to your Claude Code settings (`~/.claude/settings.json`):
-
-```json
-{
-  "plugins": [
-    "/path/to/ui-craftsman"
-  ]
-}
-```
-
-### Option 3: Project-Level
-
-Add to your project's `.claude/settings.json`:
-
-```json
-{
-  "plugins": [
-    "/path/to/ui-craftsman"
-  ]
-}
-```
-
----
-
 ## How It Works
 
 When you ask Claude to build UI, the skill activates and follows 4 steps:
@@ -84,10 +86,10 @@ Runs the exact CLI command to add the component:
 npx shadcn@latest add button card dialog
 
 # Cult UI animated components
-npx shadcn@beta add @cult-ui/hero-dithering @cult-ui/texture-card
+npx shadcn@latest add "https://cult-ui.com/r/texture-card.json"
 
-# TripleD motion blocks
-npx shadcn-ui@latest add @uitripled/glassmorphism-hero @uitripled/testimonials-block
+# TripleD motion blocks (when registry is available)
+npx shadcn@latest add @uitripled/glassmorphism-hero
 ```
 
 ### 4. Implement
@@ -161,7 +163,7 @@ Claude (with UI Craftsman):
 4. Installs Testimonials Block (TripleD) for social proof
 5. Installs Newsletter Signup Block (TripleD) for lead capture
 6. Installs Footer Block (TripleD) for the footer
-→ All components used 1:1, only text content customized
+-> All components used 1:1, only text content customized
 ```
 
 ```
@@ -173,7 +175,7 @@ Claude (with UI Craftsman):
 3. Installs Data Table (shadcn/ui) for the table
 4. Installs Badge (shadcn/ui) for status indicators
 5. Installs Dropdown Menu (shadcn/ui) for row actions
-→ Clean dashboard, no generic card grids
+-> Clean dashboard, no generic card grids
 ```
 
 ---
@@ -186,27 +188,32 @@ Before using UI Craftsman, your project needs shadcn/ui initialized:
 # 1. Initialize shadcn/ui
 npx shadcn@latest init -d
 
-# 2. Add Cult UI registry to components.json
-# (the skill handles this automatically)
-
-# 3. Install Framer Motion (required by Cult UI + TripleD)
+# 2. Install Framer Motion (required by Cult UI + TripleD components)
 npm install framer-motion
 ```
+
+The skill handles registry configuration automatically.
 
 ---
 
 ## Plugin Structure
 
 ```
-ui-craftsman/
+ui-craftsman-marketplace/
 ├── .claude-plugin/
-│   └── plugin.json                  # Plugin manifest
+│   ├── marketplace.json           # Marketplace manifest
+│   └── plugin.json                # Root plugin manifest
+├── plugins/
+│   └── ui-craftsman/
+│       ├── .claude-plugin/
+│       │   └── plugin.json        # Plugin manifest
+│       └── README.md
 ├── skills/
 │   └── ui-craftsman/
-│       ├── SKILL.md                 # Core skill instructions
+│       ├── SKILL.md               # Core skill instructions
 │       └── references/
-│           ├── component-map.md     # ~200 components mapped by use-case
-│           ├── design-rules.md      # Quality rules and anti-patterns
+│           ├── component-map.md   # ~200 components mapped by use-case
+│           ├── design-rules.md    # Quality rules and anti-patterns
 │           └── installation-guide.md # Setup for all 3 libraries
 └── README.md
 ```
@@ -231,4 +238,4 @@ MIT
 
 ---
 
-Built by [Hemmerich Consulting](https://github.com/hemmerich-consulting)
+Built by [Hemmerich Consulting](https://he-co.eu)
