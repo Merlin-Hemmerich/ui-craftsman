@@ -1,0 +1,6 @@
+{
+  "name": "ui-craftsman",
+  "version": "1.0.0",
+  "description": "High-quality frontend UI using shadcn/ui, Cult UI, and TripleD UI — no generic AI slop, only real components used 1:1.",
+  "skills": ["skills/ui-craftsman"]
+}
