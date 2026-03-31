@@ -1,11 +1,17 @@
 {
-  "name": "merlin-plugins",
-  "description": "Merlin's Claude Code plugins",
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ui-craftsman-marketplace",
+  "description": "High-quality frontend UI plugins by Merlin Hemmerich",
+  "owner": {
+    "name": "Merlin Hemmerich",
+    "email": "merlin@hemmerich.dev"
+  },
   "plugins": [
     {
       "name": "ui-craftsman",
       "description": "High-quality frontend UI using shadcn/ui, Cult UI, and TripleD UI — no generic AI slop, only real components used 1:1.",
-      "path": "."
+      "source": ".",
+      "category": "development"
     }
   ]
 }
